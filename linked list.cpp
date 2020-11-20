@@ -59,8 +59,39 @@ void print()
 	}
 }
 
-void delete_node();
-void reverse();
+void delete_node()
+{
+	int n, count;
+	n =1;
+
+	cout<<"Enter node location to delete: \n";
+	cin>>n;
+	count = n;
+	node *p, *temp;
+	p = head;
+	n--;
+	
+	if(count == 1)
+	{
+		temp = head;
+		head = head->next;
+		delete temp;
+		return;
+	}
+	while(p!=NULL)
+	{
+		if(n==1)
+		{
+			temp = p->next;
+			p->next = temp->next;
+			delete temp;
+			break;
+		}
+		p = p->next;
+		n--;
+	}
+}
+
 int main()
 {
 	int menu;
