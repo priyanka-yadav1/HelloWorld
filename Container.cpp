@@ -241,25 +241,25 @@ void Container<T>::print()
 }
 int main()
 {
-  Container<int> obj1;
+  Container<char> obj1;
  
-   obj1.append(6);
-   obj1.append(45);
-   obj1.append(12);
-   obj1.prepend(33);
+   obj1.append('a');
+   obj1.append('f');
+   obj1.append('b');
+   obj1.prepend('t');
    obj1.print();
    cout<< "Removed Data is: "<<obj1.removeAt(4)<<endl;
    obj1.print();
-   obj1.prepend(78);
-   obj1.prepend(8);
+   obj1.prepend('d');
+   obj1.prepend('r');
    cout<< "Data is: "<<obj1.at(3)<<endl;
    obj1.print();
-   obj1.insertAt(3,56);
-   obj1.append(23);
+   obj1.insertAt(3,'q');
+   obj1.append('w');
    obj1.print();
    cout<< "Removed Data is: "<<obj1.removeAt(7)<<endl;
    obj1.print();
-   cout<<"List size is: "obj1.size()<<endl;
+   cout<<"List size is: "<<obj1.size()<<endl;
   
 	return 0;
 }
