@@ -4,7 +4,7 @@ using namespace std;
 
 template <typename T>
 class Container{
-public:
+private:
 struct Node{
 	T data;
 	Node *next;
@@ -13,9 +13,8 @@ struct Node{
 Node *head ,*tail;
 int count;
 
+public:
 Container();
-
-
 void append(T data);
 void prepend(T data);
 void insertAt(int index, T data); 
@@ -77,11 +76,10 @@ template <typename T>
 void Container<T>::insertAt(int index, T data)
 {
 	count++;
+	try{
 	if(index>count)
-	{
-		cout<<"Invalid location\n";
-		return;
-	}
+		throw index;
+		
 	 Node *temp = new Node();
      temp->data= data;
      temp->next = NULL;
@@ -97,37 +95,52 @@ void Container<T>::insertAt(int index, T data)
 		tail = temp;
 		return;
 	}
- Node *p;
- p = head;
- index--;
- while(index != 1 && p != NULL)
- {
+    Node *p;
+    p = head;
+    index--;
+    while(index != 1 && p != NULL)
+    {
  	index--;
  	p = p->next;
- }
+    }
  
 
- temp->next = p->next;
- p->next = temp;
+    temp->next = p->next;
+    p->next = temp;
+    }
+    catch(int i)
+    {
+	cout<<"Invalid Index Value\n";
+    }
 }
 
 template <typename T> 
 T Container<T>::removeFirst()
 {
+	try
+	{
 	if(head == NULL)
-	return NULL;
+	throw head;
 	count--;
 	T temp;
 	temp = head->data;
 	head = head->next;
 	return temp;
+   }
+   catch(Node *p)
+   {
+   	cout<<"No element exist to remove"<<endl;
+   	return 0;
+   }
 }
 
 template <typename T>
 T Container<T>::removeLast()
 {
+	try
+	{
 	if(head == NULL)
-	return NULL;
+	throw head;
 	count--;
 	T temp;
 	Node *p;
@@ -143,19 +156,25 @@ T Container<T>::removeLast()
 	if(count == 0)
 	head = NULL;
 	return temp;
+	}
+    catch(Node *p)
+    {
+   	cout<<"No element exist to remove"<<endl;
+   	return 0;
+    }
 }
 
 template <typename T>
 T Container<T>::removeAt(int index)
 {
+	try
+	{
 	if(head == NULL)
-	return NULL;
+	throw head;
 
 	if(index > count)
-	{
-		cout<<"Invalid Data\n";
-		return NULL;
-	}
+	throw index;
+	
 	count--;
 	
 	T temp;
@@ -189,18 +208,31 @@ T Container<T>::removeAt(int index)
 	if(count == 0)
 	head = NULL;
 	return temp;
+	}
+    catch(Node *p)
+    {
+   	cout<<"No element exist to remove"<<endl;
+   	return 0;
+    }
+    catch(int i)
+    {
+	cout<<"Invalid Index Value\n";
+	return 0;
+    }
 }
 
 template <typename T>
 T Container<T>::at(int index)
 {
+
+	try
+	{
+	if(index > count)
+	throw index;
+
 	Node *p ;
 	T temp;
-	if(index > count)
-	{
-		cout<<"Invalid Location\n";
-		return NULL;
-	}
+
 	p = head;
 	while(index != 1)
 	{
@@ -209,6 +241,13 @@ T Container<T>::at(int index)
 	}
 	temp = p->data;
 	return temp;
+    }
+    catch(int i)
+    {
+	cout<<"Invalid Index Value\n";
+	return 0;
+    }
+	
 }
 
 template <typename T>
@@ -216,6 +255,7 @@ int Container<T>:: size()
 {
 	return count;
 }
+
 template <typename T>
 bool Container<T>::isEmpty()
 {
@@ -242,8 +282,9 @@ void Container<T>::print()
 int main()
 {
   Container<char> obj1;
- 
+
    obj1.append('a');
+   cout<< "Removed Data is: "<<obj1.removeAt(7)<<endl; 
    obj1.append('f');
    obj1.append('b');
    obj1.prepend('t');
@@ -252,7 +293,7 @@ int main()
    obj1.print();
    obj1.prepend('d');
    obj1.prepend('r');
-   cout<< "Data is: "<<obj1.at(3)<<endl;
+   cout<< "Data is: "<<obj1.at(30)<<endl;
    obj1.print();
    obj1.insertAt(3,'q');
    obj1.append('w');
